@@ -148,4 +148,9 @@ footer {
     margin-top: 30px;
     font-size: 14px;
     color: #777;
+    justify-content: end;
+}
+
+fieldset{
+    border: #2c3e50 ;
 }
