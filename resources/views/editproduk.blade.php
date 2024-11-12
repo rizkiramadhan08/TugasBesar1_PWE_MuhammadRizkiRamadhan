@@ -13,11 +13,16 @@
         <div class="sidebar">
             <h2>Dashboard Penjualan</h2>
             <ul>
-                <li><a href="{{ url('contoh') }}">Home</a></li>
-                <li><a href="{{ url('produk') }}">Produk</a></li>
+                <li><a href="{{ url(Auth::user()->role.'/contoh') }}">Home</a></li>
+                <li><a href="{{ url(Auth::user()->role.'/produk') }}">Produk</a></li>
                 <li><a href="#">Penjualan</a></li>
-                <li><a href="#">Laporan</a></li>
-                <li><a href="#">Pengaturan</a></li>
+                <li><a href="{{ url(Auth::user()->role.'/laporan') }}">Laporan</a></li>
+                <li>
+                    <form action="{{ url('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="text-decoration-none bg-transparent border-0 text-white" style="font-size: 18px">Logout</button>
+                    </form>
+                </li>
             </ul>
         </div>
 
@@ -30,7 +35,7 @@
                 </div>
             </header>
 
-            <form action="{{url('produk/edit/' . $ubah_produk->kode_produk)}}" method="POST" enctype="multipart/form-data">
+            <form action="{{url(Auth::user()->role.'/produk/edit/' . $ubah_produk->kode_produk)}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div >
@@ -61,10 +66,5 @@
                 <button type="submit" class="btn btn-primary">Edit</button>
             </form>
         </div>
-
-        <!-- Footer -->
-        <footer class="footerku">
-            <p>&copy; 2024 Aplikasi Penjualan. All rights reserved.</p>
-        </footer>
     </body>
 </html>

@@ -13,11 +13,16 @@
         <div class="sidebar">
             <h2>Dashboard Penjualan</h2>
             <ul>
-                <li><a href="{{ url('contoh') }}">Home</a></li>
-                <li><a href="{{ url('produk') }}">Produk</a></li>
+                <li><a href="{{ url(Auth::user()->role.'/contoh') }}">Home</a></li>
+                <li><a href="{{ url(Auth::user()->role.'/produk') }}">Produk</a></li>
                 <li><a href="#">Penjualan</a></li>
-                <li><a href="#">Laporan</a></li>
-                <li><a href="#">Pengaturan</a></li>
+                <li><a href="{{ url(Auth::user()->role.'/laporan') }}">Laporan</a></li>
+                <li>
+                    <form action="{{ url('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="text-decoration-none bg-transparent border-0 text-white" style="font-size: 18px">Logout</button>
+                    </form>
+                </li>
             </ul>
         </div>
 
@@ -30,7 +35,7 @@
                     <p>Temukan produk terbaik untuk kebutuhan anda</p>
                 </div>
                 <div>
-                    <button class="card-button"><a class="text-decoration-none text-wh" href="{{url('/produk/add')}}">Add Produk</a></button>
+                    <button class="card-button"><a class="text-decoration-none text-wh" href="{{ url(Auth::user()->role.'/produk/add') }}">Add Produk</a></button>
                 </div>
             </header>
             <!-- Product Grid -->
@@ -43,12 +48,12 @@
                     <p class="price">{{ $item->harga }}</p>
                     <p class="description">{{ $item->deskripsi }}</p>
                     {{-- <button class="card-button"> Edit </button> --}}
-                    <form action="{{url('/produk/edit/'. $item->kode_produk)}}" method="GET">
+                    <form action="{{url(Auth::user()->role.'/produk/edit/'. $item->kode_produk)}}" method="GET">
                         @csrf
                         @method('UPDATE')
                         <button type="submit" class="btn btn-primary">Edit</button>
                     </form>
-                    <form action="{{url('produk/delete/'. $item->kode_produk)}}" method="POST">
+                    <form action="{{url(Auth::user()->role.'/produk/delete/'. $item->kode_produk)}}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Delete</button>
@@ -58,7 +63,7 @@
         </div>
 
         <!-- Footer -->
-        <footer class="footerku">
+        <footer class="footer">
             <p>&copy; 2024 Aplikasi Penjualan. All rights reserved.</p>
         </footer>
     </body>
